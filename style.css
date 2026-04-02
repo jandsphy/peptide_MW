@@ -15,4 +15,5 @@ th,td{padding:8px;border:1px solid #e6edf3;text-align:left}
 .notes{margin-top:18px;color:#333}
 .options{margin-top:12px}
 .options input, .options select{width:100%;padding:8px;margin-top:6px;border:1px solid #dfe3e8;border-radius:6px}
+.hint{margin:8px 0 0;color:#4a5568;font-size:.95rem}
 code{background:#f1f5f9;padding:2px 6px;border-radius:4px}

@@ -26,6 +26,10 @@
   const errorsEl = document.getElementById('errors');
   const massTypeEl = document.getElementById('massType');
   const modsEl = document.getElementById('mods');
+  const presetModEl = document.getElementById('presetMod');
+  const presetPosEl = document.getElementById('presetPos');
+  const presetPosNumEl = document.getElementById('presetPosNum');
+  const addPresetBtn = document.getElementById('addPresetMod');
 
   function sanitizeSequence(raw){
     return raw.toUpperCase().replace(/[^A-Z]/g,'');
@@ -66,6 +70,50 @@
     }
     return mods;
   }
+
+  function updatePresetPositionVisibility(){
+    const container = document.getElementById('presetPosContainer');
+    if(presetPosEl.value === 'position'){
+      container.classList.remove('hidden');
+    } else {
+      container.classList.add('hidden');
+    }
+  }
+
+  function addPresetMod(){
+    const preset = presetModEl.value;
+    if(!preset){
+      alert('请选择预设修饰。');
+      return;
+    }
+    const [key, delta] = preset.split(':');
+    const pos = presetPosEl.value;
+    let entry;
+    if(pos === 'position'){
+      const num = parseInt(presetPosNumEl.value, 10);
+      if(!num || num < 1){
+        alert('请输入有效的位置编号。');
+        return;
+      }
+      if(key === 'NTERM' || key === 'CTERM'){
+        alert('NTERM/CTERM 修饰不能指定具体位置');
+        return;
+      }
+      entry = `${key}${num}=${delta}`;
+    } else if(pos === 'NTERM' || pos === 'CTERM'){
+      entry = `${pos}=${delta}`;
+    } else {
+      entry = `${key}=${delta}`;
+    }
+    if(modsEl.value.trim()) modsEl.value += ',';
+    modsEl.value += entry;
+    modsEl.focus();
+  }
+
+  presetPosEl.addEventListener('change', updatePresetPositionVisibility);
+  addPresetBtn.addEventListener('click', addPresetMod);
+
+  updatePresetPositionVisibility();
 
   function calculateMass(sequence, massType, mods){
     const table = massType === 'monoisotopic' ? MONO : AVG;

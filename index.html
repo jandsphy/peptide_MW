@@ -26,7 +26,36 @@
         <option value="monoisotopic">单同位素质量 (Monoisotopic)</option>
       </select>
 
-      <label for="mods">修饰（可选，格式示例：M=15.9949,C=57.02146,NTERM=42.0106；支持位置特异性如 M3=15.9949）：</label>
+      <label for="presetMod">常见修饰基团：</label>
+      <select id="presetMod">
+        <option value="">选择常见修饰</option>
+        <option value="M:15.9949">氧化 (Oxidation) - M +15.9949</option>
+        <option value="C:57.02146">羧基化 (Carbamidomethyl) - C +57.02146</option>
+        <option value="K:42.0106">乙酰化 (Acetylation) - K +42.0106</option>
+        <option value="S:79.9663">磷酸化 (Phosphorylation) - S +79.9663</option>
+        <option value="T:79.9663">磷酸化 (Phosphorylation) - T +79.9663</option>
+        <option value="Y:79.9663">磷酸化 (Phosphorylation) - Y +79.9663</option>
+        <option value="NTERM:42.0106">N端乙酰化 (N-term Acetylation) - NTERM +42.0106</option>
+        <option value="CTERM:-0.98402">C端酰胺化 (C-term Amidation) - CTERM -0.98402</option>
+      </select>
+
+      <label for="presetPos">修饰位置：</label>
+      <select id="presetPos">
+        <option value="all">所有匹配残基</option>
+        <option value="NTERM">N端</option>
+        <option value="CTERM">C端</option>
+        <option value="position">指定位置</option>
+      </select>
+
+      <div id="presetPosContainer" class="hidden">
+        <label for="presetPosNum">位置编号：</label>
+        <input id="presetPosNum" type="number" min="1" placeholder="1" />
+      </div>
+
+      <button id="addPresetMod" type="button">添加预设修饰</button>
+      <p class="hint">从上方选择常见修饰基团并指定应用位置，或直接在下方输入手动修饰字符串。</p>
+
+      <label for="mods">手动修饰输入（可选，格式示例：M=15.9949,C=57.02146,NTERM=42.0106）：</label>
       <input id="mods" placeholder="示例：M=15.9949,M3=15.99,NTERM=42.01,CTERM=-17.02" />
     </div>
 
@@ -44,7 +73,7 @@
       <h3>说明</h3>
       <ul>
         <li>支持 20 种标准氨基酸的平均/单同位素质量。计算公式：自由氨基酸质量之和 - (残基数-1) × 水分子质量 + 端修饰。</li>
-        <li>修饰格式示例：<code>M=15.9949</code> 表示对所有 M 残基加上 +15.9949 Da；支持 <code>NTERM</code>/<code>CTERM</code>。</li>
+        <li>修饰格式示例：<code>M=15.9949</code> 表示对所有 M 残基加上 +15.9949 Da；支持常见修饰选择并指定 <code>NTERM</code>/<code>CTERM</code> 或具体位置。</li>
       </ul>
     </section>
   </main>
