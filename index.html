@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>多肽分子量计算器</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <h1>多肽分子量计算器</h1>
+    <p>输入多肽的单字母氨基酸序列，选择质量类型并可添加修饰。</p>
+
+    <label for="seq">序列（支持空格、换行，将自动忽略）：</label>
+    <textarea id="seq" rows="4" placeholder="例如：ACDEFGHIKLMNPQRSTVWY"></textarea>
+
+    <div class="controls">
+      <button id="calc">计算分子量</button>
+      <button id="clear">清空</button>
+    </div>
+
+    <div class="options">
+      <label for="massType">质量类型：</label>
+      <select id="massType">
+        <option value="average">平均质量 (Average)</option>
+        <option value="monoisotopic">单同位素质量 (Monoisotopic)</option>
+      </select>
+
+      <label for="mods">修饰（可选，格式示例：M=15.9949,C=57.02146,NTERM=42.0106；支持位置特异性如 M3=15.9949）：</label>
+      <input id="mods" placeholder="示例：M=15.9949,M3=15.99,NTERM=42.01,CTERM=-17.02" />
+    </div>
+
+    <section id="result" class="hidden">
+      <h2>计算结果</h2>
+      <p id="massSummary"></p>
+      <table id="composition">
+        <thead><tr><th>氨基酸</th><th>数量</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <div id="errors" class="errors"></div>
+    </section>
+
+    <section class="notes">
+      <h3>说明</h3>
+      <ul>
+        <li>支持 20 种标准氨基酸的平均/单同位素质量。计算公式：残基质量之和 + 水分子质量。</li>
+        <li>修饰格式示例：<code>M=15.9949</code> 表示对所有 M 残基加上 +15.9949 Da；支持 <code>NTERM</code>/<code>CTERM</code>。</li>
+      </ul>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
