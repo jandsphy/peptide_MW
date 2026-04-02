@@ -113,7 +113,7 @@
       compositionBody.appendChild(tr);
     }
 
-    const detail = `序列长度：${seqLen} 残基\n残基质量和：${data.sumResidues.toFixed(4)} Da\n失去的水分子数：${seqLen > 1 ? seqLen - 1 : 0}\n失去的水分质量：-${data.waterLoss.toFixed(5)} Da\n端修饰总计：${(mods.nterm+mods.cterm).toFixed(4)} Da`;
+    const detail = `序列长度：${seqLen} 残基\n自由氨基酸质量和：${data.sumResidues.toFixed(4)} Da\n失去的水分子数：${seqLen > 1 ? seqLen - 1 : 0}\n失去的水分质量：-${data.waterLoss.toFixed(5)} Da\n端修饰总计：${(mods.nterm+mods.cterm).toFixed(4)} Da`;
     massSummary.innerHTML = `${detail.replace(/\n/g,'<br>')}<br>完整多肽总质量：<strong>${data.totalMass.toFixed(5)} Da</strong>`;
 
     const parts = [];
