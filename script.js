@@ -108,6 +108,10 @@
     if(modsEl.value.trim()) modsEl.value += ',';
     modsEl.value += entry;
     modsEl.focus();
+    presetModEl.value = '';
+    presetPosEl.value = 'all';
+    presetPosNumEl.value = '';
+    updatePresetPositionVisibility();
   }
 
   presetPosEl.addEventListener('change', updatePresetPositionVisibility);
