@@ -2,6 +2,8 @@
 
 静态网页：根据单字母氨基酸序列计算多肽分子量，支持平均质量与单同位素质量，并允许添加残基或端修饰。
 
+**🌐 Live Site:** https://jandsphy.github.io/peptide_MW/
+
 快速开始
 
 1. 在浏览器中打开 `peptide-mw/index.html`。
