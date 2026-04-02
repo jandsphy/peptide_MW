@@ -97,8 +97,9 @@
       }
     }
     const waterMass = massType === 'monoisotopic' ? WATER.monoisotopic : WATER.average;
-    const totalMass = sum + (sequence.length>0 ? waterMass : 0) + mods.nterm + mods.cterm;
-    return {counts,invalid,totalMass,sumResidues:sum,waterMass,posWarnings};
+    const waterLoss = sequence.length > 1 ? (sequence.length - 1) * waterMass : 0;
+    const totalMass = sum - waterLoss + mods.nterm + mods.cterm;
+    return {counts,invalid,totalMass,sumResidues:sum,waterMass,waterLoss,posWarnings};
   }
 
   function renderResult(data, seqLen, mods){
@@ -112,7 +113,7 @@
       compositionBody.appendChild(tr);
     }
 
-    const detail = `序列长度：${seqLen} 残基\n残基质量和：${data.sumResidues.toFixed(4)} Da\n水分质量：${data.waterMass.toFixed(5)} Da\n端修饰总计：${(mods.nterm+mods.cterm).toFixed(4)} Da`;
+    const detail = `序列长度：${seqLen} 残基\n残基质量和：${data.sumResidues.toFixed(4)} Da\n失去的水分子数：${seqLen > 1 ? seqLen - 1 : 0}\n失去的水分质量：-${data.waterLoss.toFixed(5)} Da\n端修饰总计：${(mods.nterm+mods.cterm).toFixed(4)} Da`;
     massSummary.innerHTML = `${detail.replace(/\n/g,'<br>')}<br>完整多肽总质量：<strong>${data.totalMass.toFixed(5)} Da</strong>`;
 
     const parts = [];
