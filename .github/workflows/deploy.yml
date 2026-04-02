@@ -4,21 +4,27 @@ on:
   push:
     branches: [ main ]
 
+permissions:
+  contents: write
+  pages: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and deploy
+      - name: Deploy to gh-pages
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git checkout --orphan gh-pages
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan gh-pages-build
           git rm -rf .
           git checkout main -- index.html script.js style.css README.md
           git add .
-          git commit -m "Deploy: static site content"
+          git commit -m "Deploy: static site"
+          git branch -m gh-pages
           git push -f origin gh-pages
+
